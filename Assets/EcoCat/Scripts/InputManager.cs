@@ -6,13 +6,16 @@ using UniRx;
 public class InputManager : MonoBehaviour {
 
 	public static InputManager Instance;
-
-	private Subject<Unit> jump = new Subject<Unit>();
 	public IObservable<Unit> Jump;
+
+//	private 
 
 	void Awake() {
 		Instance = this;
-		Jump = Observable.EveryUpdate ().Where (_ => Input.GetKeyDown (KeyCode.Space)).AsUnitObservable ();
+		Jump = Observable
+			.EveryUpdate()
+			.Where(_ => Input.GetKeyDown (KeyCode.Space))
+			.AsUnitObservable();
 	}
 
 
