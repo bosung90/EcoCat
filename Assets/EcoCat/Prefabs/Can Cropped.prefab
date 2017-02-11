@@ -23,7 +23,7 @@ GameObject:
   - component: {fileID: 50290863493986632}
   - component: {fileID: 70839621121616316}
   m_Layer: 0
-  m_Name: Can
+  m_Name: Can Cropped
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
