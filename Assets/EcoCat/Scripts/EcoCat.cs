@@ -18,7 +18,7 @@ public class EcoCat : MonoBehaviour {
 		}).AddTo(this);
 
 		InputManager.Instance.HorizontalForce.Subscribe (force => {
-			rigidBody2D.AddForce(Vector2.right * force * 3);
+			rigidBody2D.AddForce(Vector2.right * force * 8);
 		}).AddTo (this);
 	}
 //	private Animator animator;
