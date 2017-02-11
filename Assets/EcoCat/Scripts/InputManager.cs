@@ -8,7 +8,7 @@ public class InputManager : MonoBehaviour {
 	public static InputManager Instance;
 	public IObservable<Unit> Jump;
 
-//	private 
+	public IObservable<float> HorizontalForce;
 
 	void Awake() {
 		Instance = this;
@@ -16,6 +16,11 @@ public class InputManager : MonoBehaviour {
 			.EveryUpdate()
 			.Where(_ => Input.GetKeyDown (KeyCode.Space))
 			.AsUnitObservable();
+
+		HorizontalForce = Observable.EveryFixedUpdate ()
+			.Select (_ => Input.GetAxis ("Horizontal"))
+			.Where (force => force != 0)
+			.AsObservable ();
 	}
 
 

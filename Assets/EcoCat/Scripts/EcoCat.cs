@@ -16,6 +16,10 @@ public class EcoCat : MonoBehaviour {
 			var originalVelocity = rigidBody2D.velocity;
 			rigidBody2D.velocity = new Vector2(originalVelocity.x, 2.5f);
 		}).AddTo(this);
+
+		InputManager.Instance.HorizontalForce.Subscribe (force => {
+			rigidBody2D.AddForce(Vector2.right * force * 3);
+		}).AddTo (this);
 	}
 //	private Animator animator;
 //
