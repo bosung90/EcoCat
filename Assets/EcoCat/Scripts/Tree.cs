@@ -11,4 +11,8 @@ public class Tree : MonoBehaviour {
 	public void DecreaseCarbon(float ppmDecrease) {
 		GameManager.Instance.DecreaseCarbonPPM (ppmDecrease);
 	}
+
+	void OnDestroy() {
+		GameManager.Instance.SellTreeCollectMoney ();
+	}
 }

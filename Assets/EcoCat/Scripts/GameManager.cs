@@ -34,6 +34,13 @@ public class GameManager : MonoBehaviour {
 
 	private AudioSource endGameSound;
 
+	private ReactiveProperty<int> money = new ReactiveProperty<int> (0);
+	public ReadOnlyReactiveProperty<int> Money {
+		get {
+			return money.ToReadOnlyReactiveProperty ();
+		}
+	}
+
 	void Awake() {
 		if (Instance != null) {
 			Destroy (this);
@@ -104,7 +111,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void DecreaseCarbonPPM(float ppm) {
-        CarbonLevel.Instance.DecreaseCarbonPPM(ppm);
+		CarbonLevel.Instance.DecreaseCarbonPPM (ppm);
+	}
+
+	public void SellTreeCollectMoney() {
+		money.Value++;
 	}
     
 }

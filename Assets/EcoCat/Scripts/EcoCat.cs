@@ -112,7 +112,11 @@ public class EcoCat : MonoBehaviour {
 				hungerLevel.Value = Mathf.Max(0f, hungerLevel.Value - decreaseAmount);
 			});
 
-
+		GameManager.Instance.Money
+			.Where (money => money >= 100)
+			.Subscribe (_ => {
+				
+		}).AddTo (this);
 	}
 
     void OnCollisionEnter2D(Collision2D coll) {

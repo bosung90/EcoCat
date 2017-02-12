@@ -8,6 +8,7 @@ public class EcoCatSprite : MonoBehaviour {
 
 	public EcoCat ecoCat;
 	public GameObject seedInMouth;
+	public Sprite ecoSpaceShip;
 
 	void Awake() {
 		animator = GetComponent<Animator> ();
