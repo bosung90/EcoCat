@@ -13,6 +13,14 @@ public class GameManager : MonoBehaviour {
 	private BoxCollider2D canBoxCollider;
 	private IObservable<Unit> CanSpawn;
 
+	// Time goes from 0 to 1, where 0 is midnight, 1 is also midnight
+	private ReactiveProperty<float> timeOfTheDay = new ReactiveProperty<float>(0.25f);
+	public ReadOnlyReactiveProperty<float> TimeOfTheDay {
+		get {
+			return timeOfTheDay.ToReadOnlyReactiveProperty ();
+		}
+	}
+
 	void Awake() {
 		Instance = this;
 		CanSpawn = Observable.Timer(TimeSpan.FromSeconds(4d)).AsUnitObservable().Repeat();
@@ -27,5 +35,10 @@ public class GameManager : MonoBehaviour {
 
 			Instantiate(Can, new Vector3(UnityEngine.Random.Range(startX, endX), yPos, 0), Quaternion.identity);
 		}).AddTo(this);
+
+		Observable.EveryUpdate ().Subscribe (_ => {
+			timeOfTheDay.Value += Time.deltaTime / 48f;
+			if(timeOfTheDay.Value > 1) timeOfTheDay.Value = 0f;
+		}).AddTo (this);
 	}
 }
