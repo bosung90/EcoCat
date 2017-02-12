@@ -135,8 +135,8 @@ public class EcoCat : MonoBehaviour {
         if (numSeedsCollected.Value >= 1 && IsOnGround.Value)
         {
             // plant a tree
-			Instantiate(tree, transform.position + Vector3.down * (catCollider2D.radius + 0.05f), Quaternion.identity);
-            numSeedsCollected.Value--;
+			var newTree = Instantiate(tree, transform.position + Vector3.down * (catCollider2D.radius + 0.05f), Quaternion.identity);
+			numSeedsCollected.Value--;
 			plantTreeSound.Play ();
         }
     }
