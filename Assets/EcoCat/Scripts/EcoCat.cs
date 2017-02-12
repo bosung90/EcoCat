@@ -14,6 +14,7 @@ public class EcoCat : MonoBehaviour {
 	private ReactiveProperty<int> numCansCollected = new ReactiveProperty<int> (0);
 	private AudioSource canSound;
 	private AudioSource jumpSound;
+	private AudioSource plantTreeSound;
 
 	private ReactiveProperty<bool> isOnGround = new ReactiveProperty<bool>(false);
 	public ReadOnlyReactiveProperty<bool> IsOnGround {
@@ -62,6 +63,7 @@ public class EcoCat : MonoBehaviour {
 		var audioSources = GetComponents<AudioSource> ();
 		canSound = audioSources[0];
 		jumpSound = audioSources [1];
+		plantTreeSound = audioSources [2];
 	}
 
 	void Start() {
@@ -130,5 +132,7 @@ public class EcoCat : MonoBehaviour {
             Instantiate(tree, transform.position, Quaternion.identity);
             numSeedsCollected.Value--;
         }
+		plantTreeSound.Play ();
+
     }
 }
