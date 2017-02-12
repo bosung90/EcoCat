@@ -137,9 +137,8 @@ public class EcoCat : MonoBehaviour {
             // plant a tree
             Instantiate(tree, transform.position, Quaternion.identity);
             numSeedsCollected.Value--;
+			plantTreeSound.Play ();
         }
-		plantTreeSound.Play ();
-
     }
 
     // Note Pluck Apple is not working, because the tree collider isn't being recognized
