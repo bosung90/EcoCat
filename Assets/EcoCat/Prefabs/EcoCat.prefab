@@ -111,6 +111,7 @@ GameObject:
   - component: {fileID: 4431562337001166}
   - component: {fileID: 212044723694281970}
   - component: {fileID: 95522978384031996}
+  - component: {fileID: 114151887600327780}
   m_Layer: 0
   m_Name: EcoCatSprite
   m_TagString: Untagged
@@ -275,6 +276,18 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &114151887600327780
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1980711806664444}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 207faffaeb30f46f9998874e6e452ac4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ecoCat: {fileID: 114282460986226918}
 --- !u!114 &114282460986226918
 MonoBehaviour:
   m_ObjectHideFlags: 1

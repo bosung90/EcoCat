@@ -5,10 +5,8 @@ using UniRx;
 
 public class EcoCat : MonoBehaviour {
 
-	private Animator animator;
-
 	private Rigidbody2D rigidBody2D;
-    private bool facingRight;
+	public IObservable<bool> FacingRight;
     //private float maxSpeed = 1.0f;
 	private ReactiveProperty<int> numCansCollected = new ReactiveProperty<int> (0);
 	public ReadOnlyReactiveProperty<int> NumCanCollected {
@@ -28,12 +26,17 @@ public class EcoCat : MonoBehaviour {
 
 	void Awake() {
 		rigidBody2D = GetComponent<Rigidbody2D> ();
-		animator = GetComponent<Animator> ();
 
 		IsCatWalking = Observable
 			.EveryUpdate ()
 			.Select (_ => Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
 			.ToReadOnlyReactiveProperty ();
+
+		FacingRight = Observable
+			.EveryUpdate()
+			.Where(_ => Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
+			.Select(_ => Input.GetKeyDown(KeyCode.RightArrow))
+			.AsObservable();
 	}
 
 	void Start() {
@@ -54,37 +57,7 @@ public class EcoCat : MonoBehaviour {
 				hungerLevel.Value = 0;
 			}
 		}).AddTo (this);
-
-		IsCatWalking.Subscribe (isWalking => {
-			animator.SetBool("Walking", isWalking);
-		}).AddTo (this);
-        facingRight = true;
-
 	}
-
-    void Update()
-    {
-        // Check the velocity of the cat, and if the direction faced =/= velocity
-        // then call Flip()
-        Vector2 vel = rigidBody2D.velocity;
-        if (vel.x < 0 && facingRight)
-        {
-            Flip();
-        } else if (vel.x > 0 && !facingRight)
-        {
-            Flip();
-        }
-        
-    }
-
-    void Flip()
-    {
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
-
-        facingRight = !facingRight;
-    }
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Can") {
