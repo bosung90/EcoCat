@@ -13,6 +13,7 @@ public class EcoCat : MonoBehaviour {
     //private float maxSpeed = 1.0f;
 	private ReactiveProperty<int> numCansCollected = new ReactiveProperty<int> (0);
 	private AudioSource canSound;
+	private AudioSource jumpSound;
 
 	private ReactiveProperty<bool> isOnGround = new ReactiveProperty<bool>(false);
 	public ReadOnlyReactiveProperty<bool> IsOnGround {
@@ -58,11 +59,14 @@ public class EcoCat : MonoBehaviour {
 			.AsObservable();
 
         catCollider2D = GetComponent<CircleCollider2D>();
-		canSound = GetComponent<AudioSource> ();
+		var audioSources = GetComponents<AudioSource> ();
+		canSound = audioSources[0];
+		jumpSound = audioSources [1];
 	}
 
 	void Start() {
 		InputManager.Instance.Jump
+			.Do(_ => jumpSound.Play())
 			.Do(_ => isOnGround.Value = false)
 			.Subscribe (_ => {
 			var originalVelocity = rigidBody2D.velocity;
