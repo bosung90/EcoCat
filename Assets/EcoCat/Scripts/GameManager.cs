@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour {
 	private AudioSource endGameSound;
 	private AudioSource bgSound;
 	private AudioSource rocketSound;
+	private AudioSource kachingSound;
 
 	[SerializeField]
 	private IntReactiveProperty money = new IntReactiveProperty(0);
@@ -57,9 +58,12 @@ public class GameManager : MonoBehaviour {
         }
         canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
 
-        endGameSound = GetComponent<AudioSource> ();
-		bgSound = GetComponents<AudioSource> () [1];
-		rocketSound = GetComponents<AudioSource> () [2];
+		var audioSources = GetComponents<AudioSource> ();
+
+		endGameSound = audioSources[0];
+		bgSound = audioSources[1];
+		rocketSound = audioSources[2];
+		kachingSound = audioSources [3];
 
 		DontDestroyOnLoad (this);
 	}
@@ -121,6 +125,7 @@ public class GameManager : MonoBehaviour {
 
 	public void SellTreeCollectMoney() {
 		money.Value+= 12998;
+		kachingSound.Play ();
 //		if (money.Value >= 100) {
 //			money.Value = 0;
 //		}
