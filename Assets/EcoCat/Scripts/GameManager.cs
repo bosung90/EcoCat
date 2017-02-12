@@ -34,7 +34,8 @@ public class GameManager : MonoBehaviour {
 
 	private AudioSource endGameSound;
 
-	private ReactiveProperty<int> money = new ReactiveProperty<int> (0);
+	[SerializeField]
+	private IntReactiveProperty money = new IntReactiveProperty(0);
 	public ReadOnlyReactiveProperty<int> Money {
 		get {
 			return money.ToReadOnlyReactiveProperty ();
@@ -115,7 +116,14 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void SellTreeCollectMoney() {
-		money.Value++;
+		money.Value+= 12998;
+//		if (money.Value >= 100) {
+//			money.Value = 0;
+//		}
+	}
+
+	public void UseUpMoney() {
+		money.Value = 0;
 	}
     
 }

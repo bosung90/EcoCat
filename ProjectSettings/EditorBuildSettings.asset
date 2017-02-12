@@ -11,3 +11,5 @@ EditorBuildSettings:
     path: Assets/EcoCat/Scenes/main.unity
   - enabled: 1
     path: Assets/EcoCat/Scenes/gameOver.unity
+  - enabled: 1
+    path: Assets/EcoCat/Scenes/winScene.unity

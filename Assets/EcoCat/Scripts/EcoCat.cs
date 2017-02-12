@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
+using System;
 
 public class EcoCat : MonoBehaviour {
 
@@ -26,6 +27,8 @@ public class EcoCat : MonoBehaviour {
 	public ReadOnlyReactiveProperty<bool> IsCatWalking;
 
 	public CarbonLevel carbonLevel;
+
+	public GameObject rocket;
 
 	public ReadOnlyReactiveProperty<bool> IsOnGround {
 		get {
@@ -98,8 +101,11 @@ public class EcoCat : MonoBehaviour {
 			rigidBody2D.AddForce(Vector2.right * force * 8);
 		}).AddTo (this);
 
+		var isRocket = false;
+
 		HungerLevel
 			.Where(hungerLevel => hungerLevel <= 0)
+			.Where(_ => isRocket == false)
 			.Subscribe (_ => {
 				// CAT Dies :(
 				GameManager.Instance.LoadScene("gameOver");
@@ -112,11 +118,28 @@ public class EcoCat : MonoBehaviour {
 				hungerLevel.Value = Mathf.Max(0f, hungerLevel.Value - decreaseAmount);
 			});
 
-		GameManager.Instance.Money
-			.Where (money => money >= 100)
+		Observable.EveryUpdate ()
+			.Select (_ => GameManager.Instance.Money.Value)
+			.Where(money => money >= 95000)
 			.Subscribe (_ => {
-				
-		}).AddTo (this);
+				transform.position += Vector3.up * Time.deltaTime;
+				Camera.main.orthographicSize += Time.deltaTime/5f;
+				Observable.Timer(TimeSpan.FromSeconds(10f))
+					.Subscribe(__ => {
+						GameManager.Instance.UseUpMoney();
+						GameManager.Instance.LoadScene("winScene");
+					})
+					.AddTo(this);
+			}).AddTo (this);
+
+		GameManager.Instance.Money
+			.Where (money => money >= 95000)
+			.Subscribe (_ => {
+				rocket.SetActive(true);
+				isRocket = true;
+				rigidBody2D.gravityScale = 0f;
+			})
+			.AddTo (this);
 	}
 
     void OnCollisionEnter2D(Collision2D coll) {
