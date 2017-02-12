@@ -26,7 +26,7 @@ public class CarbonLevel : MonoBehaviour {
 
 	void Start () {
 		Observable.EveryUpdate ().Subscribe (_ => {
-			carbonLevelFill.Value = Mathf.Min(1f, carbonLevelFill.Value + Time.deltaTime/0.1f); //0.1f
+			carbonLevelFill.Value = Mathf.Min(1f, carbonLevelFill.Value + Time.deltaTime/23f);
 		}).AddTo (this);
 
 		carbonLevelFill
