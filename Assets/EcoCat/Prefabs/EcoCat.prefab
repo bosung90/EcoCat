@@ -545,7 +545,7 @@ MonoBehaviour:
   bottleDepotCollider2D: {fileID: 0}
   treeCollider2D: {fileID: 61722973975720014, guid: 881e477abdaca7943ba6b69d10e484a2,
     type: 2}
-  tree: {fileID: 1858409382851662, guid: 881e477abdaca7943ba6b69d10e484a2, type: 2}
+  tree: {fileID: 1860174095696282, guid: 2fa12024e1732406091b7060fc646b75, type: 2}
 --- !u!114 &114393827867339924
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -670,7 +670,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 21300000, guid: 78df9a3fd943149229c455f1ff328682, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

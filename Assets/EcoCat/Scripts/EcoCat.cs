@@ -6,7 +6,7 @@ using UniRx;
 public class EcoCat : MonoBehaviour {
 
     public Collider2D bottleDepotCollider2D;
-    private Collider2D catCollider2D;
+    private CircleCollider2D catCollider2D;
     public Collider2D treeCollider2D;
 
 	private Rigidbody2D rigidBody2D;
@@ -135,7 +135,7 @@ public class EcoCat : MonoBehaviour {
         if (numSeedsCollected.Value >= 1 && IsOnGround.Value)
         {
             // plant a tree
-            Instantiate(tree, transform.position, Quaternion.identity);
+			Instantiate(tree, transform.position + Vector3.down * (catCollider2D.radius + 0.05f), Quaternion.identity);
             numSeedsCollected.Value--;
 			plantTreeSound.Play ();
         }
