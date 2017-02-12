@@ -1,9 +1,12 @@
 fileFormatVersion: 2
-guid: d8eb9192b556b40219b56d628d1d2b2a
-timeCreated: 1486841643
+guid: 79d856b0145f444eea9b7724e2517ee9
+timeCreated: 1486865952
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: grow_0
+    21300002: grow_1
+    21300004: grow_2
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -34,7 +37,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -92,7 +95,46 @@ TextureImporter:
     overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: grow_0
+      rect:
+        serializedVersion: 2
+        x: 149
+        y: 542
+        width: 314
+        height: 432
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: grow_1
+      rect:
+        serializedVersion: 2
+        x: 1197
+        y: 529
+        width: 496
+        height: 757
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: grow_2
+      rect:
+        serializedVersion: 2
+        x: 2131
+        y: 525
+        width: 1051
+        height: 1458
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 
