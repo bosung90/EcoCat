@@ -27,8 +27,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private BoxCollider2D canBoxCollider;
-	private IObservable<Unit> CanSpawn;
-    private IObservable<Unit> BottleSpawn;
+    private IObservable<Unit> RecyclableSpawn;
 
 	[SerializeField]
 	private BoolReactiveProperty isRaining = new BoolReactiveProperty ();
@@ -42,8 +41,7 @@ public class GameManager : MonoBehaviour {
 			return;
 		}
 		Instance = this;
-		CanSpawn = Observable.Timer(TimeSpan.FromSeconds(4)).AsUnitObservable().Repeat();
-        BottleSpawn = Observable.Timer(TimeSpan.FromSeconds(3.5)).AsUnitObservable().Repeat();
+		RecyclableSpawn = Observable.Timer(TimeSpan.FromSeconds(4)).AsUnitObservable().Repeat();
 		canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
 
 		endGameSound = GetComponent<AudioSource> ();
@@ -52,25 +50,24 @@ public class GameManager : MonoBehaviour {
 	}
 
 	void Start() {
-		CanSpawn
+		RecyclableSpawn
 			.Where(_ => CanSpawnArea != null)
 			.Subscribe (_ => {
 				var startX = CanSpawnArea.transform.position.x - canBoxCollider.bounds.size.x / 2f;
 				var endX = CanSpawnArea.transform.position.x + canBoxCollider.bounds.size.x / 2f;
 				var yPos = CanSpawnArea.transform.position.y;
+                //System.Random rand = new System.Random();
+                var coinFlip = UnityEngine.Random.Range(0, 2) == 1;
+                //var coinFlip = rand.NextDouble() > 0.5;
+                if (coinFlip) {
+                    Instantiate(Can, new Vector3(UnityEngine.Random.Range(startX, endX), yPos, 0), Quaternion.identity);
+                }
+                else {
+                    Instantiate(Bottle, new Vector3(UnityEngine.Random.Range(startX, endX), yPos, 0), Quaternion.identity);
+                }
 
-				Instantiate(Can, new Vector3(UnityEngine.Random.Range(startX, endX), yPos, 0), Quaternion.identity);
+
 		}).AddTo(this);
-
-        BottleSpawn
-            .Where(_ => CanSpawnArea != null)
-            .Subscribe(_ => {
-                var startX = CanSpawnArea.transform.position.x - canBoxCollider.bounds.size.x / 2f;
-                var endX = CanSpawnArea.transform.position.x + canBoxCollider.bounds.size.x / 2f;
-                var yPos = CanSpawnArea.transform.position.y;
-
-                Instantiate(Bottle, new Vector3(UnityEngine.Random.Range(startX, endX), yPos, 0), Quaternion.identity);
-            }).AddTo(this);
 
         Observable.EveryUpdate ().Subscribe (_ => {
 			timeOfTheDay.Value += Time.deltaTime / 48f;
