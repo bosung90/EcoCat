@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviour {
 	private IObservable<Unit> CanSpawn;
 
 	// Time goes from 0 to 1, where 0 is midnight, 1 is also midnight
-	private ReactiveProperty<float> timeOfTheDay = new ReactiveProperty<float>(0.25f);
+	private ReactiveProperty<float> timeOfTheDay = new ReactiveProperty<float>(0f);
 	public ReadOnlyReactiveProperty<float> TimeOfTheDay {
 		get {
 			return timeOfTheDay.ToReadOnlyReactiveProperty ();
