@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject Can;
     public GameObject Bottle;
-	public Transform CanSpawnArea;
+	private Transform CanSpawnArea;
 	public CarbonLevel carbonLevel;
 
 	public ReadOnlyReactiveProperty<bool> IsRaining {
@@ -42,17 +42,28 @@ public class GameManager : MonoBehaviour {
 		}
 		Instance = this;
 		RecyclableSpawn = Observable.Timer(TimeSpan.FromSeconds(4)).AsUnitObservable().Repeat();
-		canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
 
-		endGameSound = GetComponent<AudioSource> ();
+        if (CanSpawnArea == null) {
+            CanSpawnArea = GameObject.FindGameObjectWithTag("CanSpawnArea").GetComponent<Transform>();
+        }
+        canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
+
+        endGameSound = GetComponent<AudioSource> ();
 
 		DontDestroyOnLoad (this);
 	}
 
 	void Start() {
 		RecyclableSpawn
-			.Where(_ => CanSpawnArea != null)
 			.Subscribe (_ => {
+                if (CanSpawnArea == null) {
+                    GameObject csa = GameObject.FindGameObjectWithTag("CanSpawnArea");
+                    if(csa == null) {
+                        return;
+                    }
+                    CanSpawnArea = csa.GetComponent<Transform>();
+                    canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
+                }
 				var startX = CanSpawnArea.transform.position.x - canBoxCollider.bounds.size.x / 2f;
 				var endX = CanSpawnArea.transform.position.x + canBoxCollider.bounds.size.x / 2f;
 				var yPos = CanSpawnArea.transform.position.y;
@@ -94,6 +105,8 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void DecreaseCarbonPPM(float ppm) {
-		carbonLevel.DecreaseCarbonPPM (ppm);
+        //carbonLevel.DecreaseCarbonPPM(ppm);
+        CarbonLevel.Instance.DecreaseCarbonPPM(ppm);
 	}
+    
 }
