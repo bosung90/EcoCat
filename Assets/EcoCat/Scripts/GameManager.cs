@@ -37,6 +37,10 @@ public class GameManager : MonoBehaviour {
 	private AudioSource endGameSound;
 
 	void Awake() {
+		if (Instance != null) {
+			Destroy (this);
+			return;
+		}
 		Instance = this;
 		CanSpawn = Observable.Timer(TimeSpan.FromSeconds(4)).AsUnitObservable().Repeat();
         BottleSpawn = Observable.Timer(TimeSpan.FromSeconds(3.5)).AsUnitObservable().Repeat();

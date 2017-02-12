@@ -17,6 +17,8 @@ public class EcoCat : MonoBehaviour {
 	private AudioSource canSound;
 	private AudioSource jumpSound;
 	private AudioSource plantTreeSound;
+	private AudioSource ecoCatSound;
+
 	private ReactiveProperty<bool> isOnGround = new ReactiveProperty<bool>(false);
 	private ReactiveProperty<int> numSeedsCollected = new ReactiveProperty<int>(0);
 	private ReactiveProperty<float> hungerLevel = new ReactiveProperty<float> (1);
@@ -72,12 +74,21 @@ public class EcoCat : MonoBehaviour {
 		canSound = audioSources[0];
 		jumpSound = audioSources [1];
 		plantTreeSound = audioSources [2];
-
+		ecoCatSound = audioSources [3];
 	}
 
 	void Start() {
+		var jumpCounter = 0;
+
 		InputManager.Instance.Jump
-			.Do(_ => jumpSound.Play())
+			.Do(_ => jumpCounter++)
+			.Do(_ => {
+				if((jumpCounter % 3) == 0) {
+					ecoCatSound.Play();
+				} else {
+					jumpSound.Play();
+				}
+			})
 			.Do(_ => isOnGround.Value = false)
 			.Subscribe (_ => {
 			var originalVelocity = rigidBody2D.velocity;
@@ -87,15 +98,6 @@ public class EcoCat : MonoBehaviour {
 		InputManager.Instance.HorizontalForce.Subscribe (force => {
 			rigidBody2D.AddForce(Vector2.right * force * 8);
 		}).AddTo (this);
-
-//		Observable.EveryUpdate ().Subscribe (_ => {
-//			var decreaseAmount = Time.deltaTime / 100f;
-//			if(hungerLevel.Value > decreaseAmount) {
-//				hungerLevel.Value -= decreaseAmount;
-//			} else {
-//				hungerLevel.Value = 0;
-//			}
-//		}).AddTo (this);
 
 		HungerLevel
 			.Where(hungerLevel => hungerLevel <= 0)
