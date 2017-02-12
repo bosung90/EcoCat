@@ -7,6 +7,7 @@ public class EcoCatSprite : MonoBehaviour {
 	private Animator animator;
 
 	public EcoCat ecoCat;
+	public GameObject seedInMouth;
 
 	void Awake() {
 		animator = GetComponent<Animator> ();
@@ -19,6 +20,13 @@ public class EcoCatSprite : MonoBehaviour {
 
 		ecoCat.FacingRight.Subscribe (isFacingRight => {
 			LookDirection(isFacingRight);
+		}).AddTo (this);
+
+		ecoCat.NumSeedsCollected
+			.Select (seedNum => seedNum > 0)
+			.DistinctUntilChanged ()
+			.Subscribe (hasSeed => {
+				seedInMouth.SetActive(hasSeed);
 		}).AddTo (this);
 	}
 
