@@ -565,6 +565,11 @@ Prefab:
       propertyPath: bottleDepotCollider2D
       value: 
       objectReference: {fileID: 1078659131}
+    - target: {fileID: 20246056000682274, guid: a04acd42df2194b7d8584d854fecf971,
+        type: 2}
+      propertyPath: orthographic size
+      value: 0.9
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a04acd42df2194b7d8584d854fecf971, type: 2}
   m_IsPrefabParent: 0
@@ -2097,6 +2102,41 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 845977674}
+    - target: {fileID: 114421063776695698, guid: 971b5042add7f4e94857192cd59eb03d,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114421063776695698, guid: 971b5042add7f4e94857192cd59eb03d,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114421063776695698, guid: 971b5042add7f4e94857192cd59eb03d,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359229450569344, guid: 971b5042add7f4e94857192cd59eb03d,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359229450569344, guid: 971b5042add7f4e94857192cd59eb03d,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114359229450569344, guid: 971b5042add7f4e94857192cd59eb03d,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 224419039188204830, guid: 971b5042add7f4e94857192cd59eb03d,
+        type: 2}
+      propertyPath: m_AnchoredPosition.y
+      value: -2.4000244
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 971b5042add7f4e94857192cd59eb03d, type: 2}
   m_IsPrefabParent: 0
