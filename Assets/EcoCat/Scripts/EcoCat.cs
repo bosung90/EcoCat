@@ -13,6 +13,13 @@ public class EcoCat : MonoBehaviour {
 		}
 	}
 
+	private ReactiveProperty<float> hungerLevel = new ReactiveProperty<float> (1);
+	public ReadOnlyReactiveProperty<float> HungerLevel {
+		get {
+			return hungerLevel.DistinctUntilChanged().ToReadOnlyReactiveProperty();
+		}
+	}
+
 	void Awake() {
 		rigidBody2D = GetComponent<Rigidbody2D> ();
 	}
@@ -26,13 +33,21 @@ public class EcoCat : MonoBehaviour {
 		InputManager.Instance.HorizontalForce.Subscribe (force => {
 			rigidBody2D.AddForce(Vector2.right * force * 8);
 		}).AddTo (this);
+
+		Observable.EveryUpdate ().Subscribe (_ => {
+			var decreaseAmount = Time.deltaTime / 100f;
+			if(hungerLevel.Value > decreaseAmount) {
+				hungerLevel.Value -= decreaseAmount;
+			} else {
+				hungerLevel.Value = 0;
+			}
+		}).AddTo (this);
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
 		if (coll.gameObject.tag == "Can") {
 			Destroy (coll.gameObject);
 			numCansCollected.Value++;
-
 		}
 	}
 		
