@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 507da0bcca08e47d2a3f4b16ef1e727d
+timeCreated: 1486893368
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Digital Play St
+  fontNames:
+  - Digital Play St
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
