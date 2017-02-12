@@ -35,6 +35,10 @@ public class GameManager : MonoBehaviour {
 	private AudioSource endGameSound;
 
 	void Awake() {
+		if (Instance != null) {
+			Destroy (this);
+			return;
+		}
 		Instance = this;
 		CanSpawn = Observable.Timer(TimeSpan.FromSeconds(4)).AsUnitObservable().Repeat();
 		canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
