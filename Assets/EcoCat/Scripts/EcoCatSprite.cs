@@ -8,7 +8,6 @@ public class EcoCatSprite : MonoBehaviour {
 
 	public EcoCat ecoCat;
 	public GameObject seedInMouth;
-	public Sprite ecoSpaceShip;
 
     public GameObject anxiousFace;
     public SpriteRenderer anxiousRenderer;

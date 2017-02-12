@@ -1400,6 +1400,11 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 114573073323346008, guid: a04acd42df2194b7d8584d854fecf971,
+        type: 2}
+      propertyPath: carbonLevel
+      value: 
+      objectReference: {fileID: 1536625023}
     - target: {fileID: 114869005476079656, guid: a04acd42df2194b7d8584d854fecf971,
         type: 2}
       propertyPath: bottleDepotCollider2D
