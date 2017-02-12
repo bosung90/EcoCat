@@ -467,10 +467,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1030900634058636, guid: 2cb430082b6f347de9344ea2a140e0c7, type: 2}
-      propertyPath: m_TagString
-      value: CanSpawnArea
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2cb430082b6f347de9344ea2a140e0c7, type: 2}
   m_IsPrefabParent: 0
@@ -1784,22 +1780,12 @@ Transform:
   m_PrefabParentObject: {fileID: 4535368194364712, guid: f35dff6508930d44ebd50ec5e9e200a7,
     type: 2}
   m_PrefabInternal: {fileID: 1963370366}
---- !u!1 &1536625018 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 1650108130014398, guid: 410ab49b128134a988ca9fd381887de8,
+--- !u!114 &1536625022 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114617255675364784, guid: 410ab49b128134a988ca9fd381887de8,
     type: 2}
   m_PrefabInternal: {fileID: 2101697511}
---- !u!114 &1536625022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1536625018}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c41afd2a68b0e45d5ab8e770c8469573, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!4 &1546034106 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4354961272614424, guid: 63a871b6605ec4cf2896d6566c940a66,
@@ -2556,6 +2542,11 @@ Prefab:
       propertyPath: m_Pivot.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114580828537623218, guid: 410ab49b128134a988ca9fd381887de8,
+        type: 2}
+      propertyPath: ecoCat
+      value: 
+      objectReference: {fileID: 70356257}
     - target: {fileID: 223086890285994362, guid: 410ab49b128134a988ca9fd381887de8,
         type: 2}
       propertyPath: m_Camera
