@@ -33,4 +33,8 @@ public class CarbonLevel : MonoBehaviour {
 
 
 	}
+
+	public void DecreaseCarbonPPM(float ppm) {
+		carbonLevelFill.Value = Mathf.Max (0, carbonLevelFill.Value - ppm / 200f);
+	}
 }

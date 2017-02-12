@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject Can;
 	public Transform CanSpawnArea;
+	public CarbonLevel carbonLevel;
 
 	public ReadOnlyReactiveProperty<bool> IsRaining {
 		get {
@@ -76,5 +77,9 @@ public class GameManager : MonoBehaviour {
 		}
 
 		SceneManager.LoadScene (sceneName);
+	}
+
+	public void DecreaseCarbonPPM(float ppm) {
+		carbonLevel.DecreaseCarbonPPM (ppm);
 	}
 }

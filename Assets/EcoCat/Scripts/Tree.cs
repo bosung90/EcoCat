@@ -7,4 +7,8 @@ public class Tree : MonoBehaviour {
 	public void DestroyAfterXSeconds(float seconds) {
 		Destroy (this.gameObject, seconds);
 	}
+
+	public void DecreaseCarbon(float ppmDecrease) {
+		GameManager.Instance.DecreaseCarbonPPM (ppmDecrease);
+	}
 }

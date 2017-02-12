@@ -98,14 +98,13 @@ public class EcoCat : MonoBehaviour {
 				GameManager.Instance.LoadScene("gameOver");
 		}).AddTo (this);
 			
-
-		carbonLevel.carbonLevelFull
-			.Where(isFull => isFull)
-			.SelectMany(_=> Observable.EveryUpdate())
+		Observable.EveryUpdate()
+			.Where(_ => carbonLevel.carbonLevelFull.Value)
 			.Subscribe (_ => {
 				var decreaseAmount = Time.deltaTime / 20f;
 				hungerLevel.Value = Mathf.Max(0f, hungerLevel.Value - decreaseAmount);
-		});
+			});
+
 
 	}
 
