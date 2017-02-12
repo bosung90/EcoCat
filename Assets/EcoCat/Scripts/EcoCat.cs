@@ -5,6 +5,8 @@ using UniRx;
 
 public class EcoCat : MonoBehaviour {
 
+	private Animator animator;
+
 	private Rigidbody2D rigidBody2D;
 	private ReactiveProperty<int> numCansCollected = new ReactiveProperty<int> (0);
 	public ReadOnlyReactiveProperty<int> NumCanCollected {
@@ -20,8 +22,16 @@ public class EcoCat : MonoBehaviour {
 		}
 	}
 
+	public ReadOnlyReactiveProperty<bool> IsCatWalking;
+
 	void Awake() {
 		rigidBody2D = GetComponent<Rigidbody2D> ();
+		animator = GetComponent<Animator> ();
+
+		IsCatWalking = Observable
+			.EveryUpdate ()
+			.Select (_ => Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.RightArrow))
+			.ToReadOnlyReactiveProperty ();
 	}
 
 	void Start() {
@@ -42,6 +52,10 @@ public class EcoCat : MonoBehaviour {
 				hungerLevel.Value = 0;
 			}
 		}).AddTo (this);
+
+		IsCatWalking.Subscribe (isWalking => {
+			animator.SetBool("Walking", isWalking);
+		}).AddTo (this);
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -50,15 +64,4 @@ public class EcoCat : MonoBehaviour {
 			numCansCollected.Value++;
 		}
 	}
-		
-//	private Animator animator;
-//
-//	void Awake() {
-//		animator = GetComponent<Animator> ();
-//	}
-//
-//	void Start() {
-//		animator.get
-//	}
-
 }
