@@ -13,6 +13,7 @@ public class EcoCat : MonoBehaviour {
 	public IObservable<bool> FacingRight;
     //private float maxSpeed = 1.0f;
 	private ReactiveProperty<int> numCansCollected = new ReactiveProperty<int> (0);
+    private ReactiveProperty<int> numBottlesCollected = new ReactiveProperty<int> (0);
 	private AudioSource canSound;
 	private AudioSource jumpSound;
 	private AudioSource plantTreeSound;
@@ -36,6 +37,11 @@ public class EcoCat : MonoBehaviour {
 			return numCansCollected.ToReadOnlyReactiveProperty();
 		}
 	}
+    public ReadOnlyReactiveProperty<int> NumBottlesCollected {
+        get {
+            return numBottlesCollected.ToReadOnlyReactiveProperty();
+        }
+    }
     public ReadOnlyReactiveProperty<int> NumSeedsCollected {
         get {
             return numSeedsCollected.ToReadOnlyReactiveProperty();
@@ -113,7 +119,14 @@ public class EcoCat : MonoBehaviour {
             Destroy(coll.gameObject);
             numCansCollected.Value++;
 			canSound.Play ();
-		} else if (coll.gameObject.tag == "Land") {
+            Debug.Log(numCansCollected.Value);
+		} else if (coll.gameObject.tag == "Bottle") {
+            Destroy(coll.gameObject);
+            numBottlesCollected.Value++;
+            canSound.Play(); // Change to bottle sound
+            Debug.Log("Bottles Collected: " + numBottlesCollected.Value);
+        }
+        else if (coll.gameObject.tag == "Land") {
 			isOnGround.Value = true;
         }
     }
@@ -139,10 +152,21 @@ public class EcoCat : MonoBehaviour {
     // Determine if ecocat has enough cans and is touching the depot
     void BuySeeds()
     {
-        if (catCollider2D.IsTouching(bottleDepotCollider2D) && numCansCollected.Value >= 3)
-        {
-            numCansCollected.Value = numCansCollected.Value - 3;
-            numSeedsCollected.Value++;
+        if (catCollider2D.IsTouching(bottleDepotCollider2D)) {
+            // Case 1: num cans >= 3; use cans alone
+            if (numCansCollected.Value >= 3) {
+                numCansCollected.Value = numCansCollected.Value - 3;
+                numSeedsCollected.Value++;
+            }
+            // Case 2: num cans < 3, but cans + bottles > 3 -> then use cans until no more, then bottles are
+            // used instead
+            else if (numCansCollected.Value + numBottlesCollected.Value >= 3 ) {
+                // paid is between 0 and 2
+                int paid = numCansCollected.Value;
+                numCansCollected.Value = 0;
+                numBottlesCollected.Value -= (3 - paid);
+                numSeedsCollected.Value++;
+            }
         }
     }
 

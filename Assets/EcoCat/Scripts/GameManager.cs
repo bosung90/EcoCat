@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour {
 	public static GameManager Instance;
 
 	public GameObject Can;
+    public GameObject Bottle;
 	public Transform CanSpawnArea;
 	public CarbonLevel carbonLevel;
 
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour {
 
 	private BoxCollider2D canBoxCollider;
 	private IObservable<Unit> CanSpawn;
+    private IObservable<Unit> BottleSpawn;
 
 	[SerializeField]
 	private BoolReactiveProperty isRaining = new BoolReactiveProperty ();
@@ -37,6 +39,7 @@ public class GameManager : MonoBehaviour {
 	void Awake() {
 		Instance = this;
 		CanSpawn = Observable.Timer(TimeSpan.FromSeconds(4)).AsUnitObservable().Repeat();
+        BottleSpawn = Observable.Timer(TimeSpan.FromSeconds(3.5)).AsUnitObservable().Repeat();
 		canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
 
 		endGameSound = GetComponent<AudioSource> ();
@@ -55,7 +58,17 @@ public class GameManager : MonoBehaviour {
 				Instantiate(Can, new Vector3(UnityEngine.Random.Range(startX, endX), yPos, 0), Quaternion.identity);
 		}).AddTo(this);
 
-		Observable.EveryUpdate ().Subscribe (_ => {
+        BottleSpawn
+            .Where(_ => CanSpawnArea != null)
+            .Subscribe(_ => {
+                var startX = CanSpawnArea.transform.position.x - canBoxCollider.bounds.size.x / 2f;
+                var endX = CanSpawnArea.transform.position.x + canBoxCollider.bounds.size.x / 2f;
+                var yPos = CanSpawnArea.transform.position.y;
+
+                Instantiate(Bottle, new Vector3(UnityEngine.Random.Range(startX, endX), yPos, 0), Quaternion.identity);
+            }).AddTo(this);
+
+        Observable.EveryUpdate ().Subscribe (_ => {
 			timeOfTheDay.Value += Time.deltaTime / 48f;
 			if(timeOfTheDay.Value > 1) timeOfTheDay.Value = 0;
 		}).AddTo (this);
