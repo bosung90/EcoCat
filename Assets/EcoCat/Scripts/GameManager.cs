@@ -11,15 +11,12 @@ public class GameManager : MonoBehaviour {
 	public GameObject Can;
 	public Transform CanSpawnArea;
 	private BoxCollider2D canBoxCollider;
-
 	private IObservable<Unit> CanSpawn;
 
 	void Awake() {
 		Instance = this;
 		CanSpawn = Observable.Timer(TimeSpan.FromSeconds(4d)).AsUnitObservable().Repeat();
-
 		canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
-
 	}
 
 	void Start() {

@@ -9,8 +9,14 @@ public class EcoCat : MonoBehaviour {
 	public IObservable<bool> FacingRight;
     //private float maxSpeed = 1.0f;
 	private ReactiveProperty<int> numCansCollected = new ReactiveProperty<int> (0);
-
 	private AudioSource canSound;
+
+	private ReactiveProperty<bool> isOnGround = new ReactiveProperty<bool>(false);
+	public ReadOnlyReactiveProperty<bool> IsOnGround {
+		get {
+			return isOnGround.ToReadOnlyReactiveProperty ();
+		}
+	}
 
 	public ReadOnlyReactiveProperty<int> NumCanCollected {
 		get {
@@ -45,7 +51,9 @@ public class EcoCat : MonoBehaviour {
 	}
 
 	void Start() {
-		InputManager.Instance.Jump.Subscribe (_ => {
+		InputManager.Instance.Jump
+			.Do(_ => isOnGround.Value = false)
+			.Subscribe (_ => {
 			var originalVelocity = rigidBody2D.velocity;
 			rigidBody2D.velocity = new Vector2(originalVelocity.x, 2.5f);
 		}).AddTo(this);
@@ -62,6 +70,7 @@ public class EcoCat : MonoBehaviour {
 				hungerLevel.Value = 0;
 			}
 		}).AddTo (this);
+			
 	}
 
 	void OnCollisionEnter2D(Collision2D coll) {
@@ -69,6 +78,8 @@ public class EcoCat : MonoBehaviour {
 			Destroy (coll.gameObject);
 			numCansCollected.Value++;
 			canSound.Play ();
+		} else if (coll.gameObject.tag == "Land") {
+			isOnGround.Value = true;
 		}
 	}
 }
