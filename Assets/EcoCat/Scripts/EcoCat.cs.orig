@@ -7,6 +7,7 @@ public class EcoCat : MonoBehaviour {
 
     public Collider2D bottleDepotCollider2D;
     private Collider2D catCollider2D;
+    public Collider2D groundCollider2D;
 
 	private Rigidbody2D rigidBody2D;
 	public IObservable<bool> FacingRight;
@@ -57,9 +58,14 @@ public class EcoCat : MonoBehaviour {
 			.Select(_ => Input.GetKeyDown(KeyCode.RightArrow))
 			.AsObservable();
 
+<<<<<<< HEAD
         catCollider2D = GetComponent<CircleCollider2D>();
+
+    }
+=======
 		canSound = GetComponent<AudioSource> ();
 	}
+>>>>>>> 2ec6ab742f96c86074a61e5f0b551b35864e9213
 
 	void Start() {
 		InputManager.Instance.Jump
@@ -84,13 +90,11 @@ public class EcoCat : MonoBehaviour {
 			
 	}
 
+<<<<<<< HEAD
     void OnCollisionEnter2D(Collision2D coll) {
         if (coll.gameObject.tag == "Can") {
             Destroy(coll.gameObject);
             numCansCollected.Value++;
-			canSound.Play ();
-		} else if (coll.gameObject.tag == "Land") {
-			isOnGround.Value = true;
         }
     }
 
@@ -120,11 +124,22 @@ public class EcoCat : MonoBehaviour {
     void PlantTree()
     {
         // Cat must be grounded
-        if (numSeedsCollected.Value >= 1)
+        if (numSeedsCollected.Value >= 1 && catCollider2D.IsTouching(groundCollider2D))
         {
             // plant a tree
             Instantiate(tree, transform.position, Quaternion.identity);
             numSeedsCollected.Value--;
         }
     }
+=======
+	void OnCollisionEnter2D(Collision2D coll) {
+		if (coll.gameObject.tag == "Can") {
+			Destroy (coll.gameObject);
+			numCansCollected.Value++;
+			canSound.Play ();
+		} else if (coll.gameObject.tag == "Land") {
+			isOnGround.Value = true;
+		}
+	}
+>>>>>>> 2ec6ab742f96c86074a61e5f0b551b35864e9213
 }

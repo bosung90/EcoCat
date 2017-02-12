@@ -20,9 +20,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4990911561611454}
   - component: {fileID: 212512697325600100}
+  - component: {fileID: 61855711351511784}
   m_Layer: 0
   m_Name: Bottle Depot
-  m_TagString: Untagged
+  m_TagString: BottleDepot
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -40,6 +41,20 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &61855711351511784
+BoxCollider2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1113690430096614}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Size: {x: 17.24, y: 15.75}
 --- !u!212 &212512697325600100
 SpriteRenderer:
   m_ObjectHideFlags: 1

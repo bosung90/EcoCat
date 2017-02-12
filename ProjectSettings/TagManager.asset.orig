@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Can
-  - BottleDepot
   - Land
+  - Can
   layers:
   - Default
   - TransparentFX
