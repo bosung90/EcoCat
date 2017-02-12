@@ -33,6 +33,8 @@ public class GameManager : MonoBehaviour {
 	private ReactiveProperty<float> timeOfTheDay = new ReactiveProperty<float>(0f);
 
 	private AudioSource endGameSound;
+	private AudioSource bgSound;
+	private AudioSource rocketSound;
 
 	[SerializeField]
 	private IntReactiveProperty money = new IntReactiveProperty(0);
@@ -56,6 +58,8 @@ public class GameManager : MonoBehaviour {
         canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
 
         endGameSound = GetComponent<AudioSource> ();
+		bgSound = GetComponents<AudioSource> () [1];
+		rocketSound = GetComponents<AudioSource> () [2];
 
 		DontDestroyOnLoad (this);
 	}
@@ -124,6 +128,16 @@ public class GameManager : MonoBehaviour {
 
 	public void UseUpMoney() {
 		money.Value = 0;
+	}
+
+	public void PlayBGSound() {
+		bgSound.Play ();
+		rocketSound.Stop ();
+	}
+
+	public void PlayRocketSound() {
+		bgSound.Stop ();
+		rocketSound.Play ();
 	}
     
 }

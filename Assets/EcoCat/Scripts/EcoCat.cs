@@ -138,6 +138,7 @@ public class EcoCat : MonoBehaviour {
 		GameManager.Instance.Money
 			.Where (money => money >= 95000)
 			.Subscribe (_ => {
+				GameManager.Instance.PlayRocketSound();
 				rocket.SetActive(true);
 				isRocket = true;
 				rigidBody2D.gravityScale = 0f;
