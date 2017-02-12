@@ -13,6 +13,7 @@ public class EcoCat : MonoBehaviour {
 	public IObservable<bool> FacingRight;
 	private ReactiveProperty<int> numCansCollected = new ReactiveProperty<int> (0);
     private ReactiveProperty<int> numBottlesCollected = new ReactiveProperty<int> (0);
+
 	private AudioSource canSound;
 	private AudioSource jumpSound;
 	private AudioSource plantTreeSound;
@@ -54,6 +55,7 @@ public class EcoCat : MonoBehaviour {
 		}
 	}
 
+
 	void Awake() {
 		rigidBody2D = GetComponent<Rigidbody2D> ();
 
@@ -74,6 +76,7 @@ public class EcoCat : MonoBehaviour {
 		jumpSound = audioSources [1];
 		plantTreeSound = audioSources [2];
 		ecoCatSound = audioSources [3];
+        
 	}
 
 	void Start() {
@@ -145,11 +148,6 @@ public class EcoCat : MonoBehaviour {
         {
             PlantTree();
         }
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            // Pluck an apple if you jump, or at least try to
-            PluckApple();
-        }
     }
 
     // Determine if ecocat has enough cans and is touching the depot
@@ -185,12 +183,4 @@ public class EcoCat : MonoBehaviour {
         }
     }
 
-    // Note Pluck Apple is not working, because the tree collider isn't being recognized
-    void PluckApple()
-    {
-//        if (catCollider2D.IsTouching(treeCollider2D))
-//        {
-//            Debug.Log("Pluck an apple");
-//        }
-    }
 }
