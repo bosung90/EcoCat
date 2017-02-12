@@ -81,12 +81,19 @@ public class EcoCat : MonoBehaviour {
 		}).AddTo (this);
 
 		Observable.EveryUpdate ().Subscribe (_ => {
-			var decreaseAmount = Time.deltaTime / 100f;
+			var decreaseAmount = Time.deltaTime / 10f;
 			if(hungerLevel.Value > decreaseAmount) {
 				hungerLevel.Value -= decreaseAmount;
 			} else {
 				hungerLevel.Value = 0;
 			}
+		}).AddTo (this);
+
+		HungerLevel
+			.Where(hungerLevel => hungerLevel <= 0)
+			.Subscribe (_ => {
+				// CAT Dies :(
+				GameManager.Instance.LoadScene("gameOver");
 		}).AddTo (this);
 			
 	}

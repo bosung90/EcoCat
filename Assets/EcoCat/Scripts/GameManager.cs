@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UniRx;
 using System;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -34,16 +35,18 @@ public class GameManager : MonoBehaviour {
 		CanSpawn = Observable.Timer(TimeSpan.FromSeconds(4)).AsUnitObservable().Repeat();
 		canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
 
-
+		DontDestroyOnLoad (this);
 	}
 
 	void Start() {
-		CanSpawn.Subscribe (_ => {
-			var startX = CanSpawnArea.transform.position.x - canBoxCollider.bounds.size.x / 2f;
-			var endX = CanSpawnArea.transform.position.x + canBoxCollider.bounds.size.x / 2f;
-			var yPos = CanSpawnArea.transform.position.y;
+		CanSpawn
+			.Where(_ => CanSpawnArea != null)
+			.Subscribe (_ => {
+				var startX = CanSpawnArea.transform.position.x - canBoxCollider.bounds.size.x / 2f;
+				var endX = CanSpawnArea.transform.position.x + canBoxCollider.bounds.size.x / 2f;
+				var yPos = CanSpawnArea.transform.position.y;
 
-			Instantiate(Can, new Vector3(UnityEngine.Random.Range(startX, endX), yPos, 0), Quaternion.identity);
+				Instantiate(Can, new Vector3(UnityEngine.Random.Range(startX, endX), yPos, 0), Quaternion.identity);
 		}).AddTo(this);
 
 		Observable.EveryUpdate ().Subscribe (_ => {
@@ -59,5 +62,9 @@ public class GameManager : MonoBehaviour {
 					isRaining.Value = false;
 				});
 		}).AddTo(this);
+	}
+
+	public void LoadScene(string sceneName) {
+		SceneManager.LoadScene (sceneName);
 	}
 }
