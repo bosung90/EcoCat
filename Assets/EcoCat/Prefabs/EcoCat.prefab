@@ -155,7 +155,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1773583092657372}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.27, y: -3.01, z: 0}
+  m_LocalPosition: {x: -0.27, y: -3.28, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4209453273939228}
@@ -542,9 +542,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c4af5788c264712ad6029efa9142e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bottleDepotCollider2D: {fileID: 61855711351511784, guid: 0e89cafb608ce7540ab29b85f64f69c7,
+  bottleDepotCollider2D: {fileID: 0}
+  treeCollider2D: {fileID: 61722973975720014, guid: 881e477abdaca7943ba6b69d10e484a2,
     type: 2}
-  treeCollider2D: {fileID: 0}
   tree: {fileID: 1858409382851662, guid: 881e477abdaca7943ba6b69d10e484a2, type: 2}
 --- !u!114 &114393827867339924
 MonoBehaviour:

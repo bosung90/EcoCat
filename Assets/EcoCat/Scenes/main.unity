@@ -534,7 +534,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4470299548065234, guid: a04acd42df2194b7d8584d854fecf971, type: 2}
       propertyPath: m_LocalPosition.y
-      value: -3.01
+      value: -3.28
       objectReference: {fileID: 0}
     - target: {fileID: 4470299548065234, guid: a04acd42df2194b7d8584d854fecf971, type: 2}
       propertyPath: m_LocalPosition.z
@@ -565,12 +565,6 @@ Prefab:
       propertyPath: bottleDepotCollider2D
       value: 
       objectReference: {fileID: 1078659131}
-    - target: {fileID: 114282460986226918, guid: a04acd42df2194b7d8584d854fecf971,
-        type: 2}
-      propertyPath: treeCollider2D
-      value: 
-      objectReference: {fileID: 61722973975720014, guid: 881e477abdaca7943ba6b69d10e484a2,
-        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a04acd42df2194b7d8584d854fecf971, type: 2}
   m_IsPrefabParent: 0
