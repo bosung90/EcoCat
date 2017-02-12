@@ -9,6 +9,9 @@ public class EcoCat : MonoBehaviour {
 	public IObservable<bool> FacingRight;
     //private float maxSpeed = 1.0f;
 	private ReactiveProperty<int> numCansCollected = new ReactiveProperty<int> (0);
+
+	private AudioSource canSound;
+
 	public ReadOnlyReactiveProperty<int> NumCanCollected {
 		get {
 			return numCansCollected.ToReadOnlyReactiveProperty();
@@ -37,6 +40,8 @@ public class EcoCat : MonoBehaviour {
 			.Where(_ => Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.RightArrow))
 			.Select(_ => Input.GetKeyDown(KeyCode.RightArrow))
 			.AsObservable();
+
+		canSound = GetComponent<AudioSource> ();
 	}
 
 	void Start() {
@@ -63,6 +68,7 @@ public class EcoCat : MonoBehaviour {
 		if (coll.gameObject.tag == "Can") {
 			Destroy (coll.gameObject);
 			numCansCollected.Value++;
+			canSound.Play ();
 		}
 	}
 }
