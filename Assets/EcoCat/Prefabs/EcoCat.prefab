@@ -214,7 +214,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 0.74628
+  orthographic size: 0.9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -574,9 +574,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bottleDepotCollider2D: {fileID: 0}
-  treeCollider2D: {fileID: 61722973975720014, guid: 881e477abdaca7943ba6b69d10e484a2,
-    type: 2}
   tree: {fileID: 1860174095696282, guid: 2fa12024e1732406091b7060fc646b75, type: 2}
+  carbonLevel: {fileID: 0}
 --- !u!114 &114393827867339924
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -7,7 +7,7 @@ public class EcoCat : MonoBehaviour {
 
     public Collider2D bottleDepotCollider2D;
     private CircleCollider2D catCollider2D;
-    public Collider2D treeCollider2D;
+//    public Collider2D treeCollider2D;
 
 	private Rigidbody2D rigidBody2D;
 	public IObservable<bool> FacingRight;
@@ -16,8 +16,15 @@ public class EcoCat : MonoBehaviour {
 	private AudioSource canSound;
 	private AudioSource jumpSound;
 	private AudioSource plantTreeSound;
-
 	private ReactiveProperty<bool> isOnGround = new ReactiveProperty<bool>(false);
+	private ReactiveProperty<int> numSeedsCollected = new ReactiveProperty<int>(0);
+	private ReactiveProperty<float> hungerLevel = new ReactiveProperty<float> (1);
+
+	public GameObject tree;
+	public ReadOnlyReactiveProperty<bool> IsCatWalking;
+
+	public CarbonLevel carbonLevel;
+
 	public ReadOnlyReactiveProperty<bool> IsOnGround {
 		get {
 			return isOnGround.ToReadOnlyReactiveProperty ();
@@ -29,22 +36,16 @@ public class EcoCat : MonoBehaviour {
 			return numCansCollected.ToReadOnlyReactiveProperty();
 		}
 	}
-    private ReactiveProperty<int> numSeedsCollected = new ReactiveProperty<int>(0);
     public ReadOnlyReactiveProperty<int> NumSeedsCollected {
         get {
             return numSeedsCollected.ToReadOnlyReactiveProperty();
         }
     }
-    private ReactiveProperty<float> hungerLevel = new ReactiveProperty<float> (1);
 	public ReadOnlyReactiveProperty<float> HungerLevel {
 		get {
 			return hungerLevel.DistinctUntilChanged().ToReadOnlyReactiveProperty();
 		}
 	}
-
-    public GameObject tree;
-
-	public ReadOnlyReactiveProperty<bool> IsCatWalking;
 
 	void Awake() {
 		rigidBody2D = GetComponent<Rigidbody2D> ();
@@ -65,6 +66,7 @@ public class EcoCat : MonoBehaviour {
 		canSound = audioSources[0];
 		jumpSound = audioSources [1];
 		plantTreeSound = audioSources [2];
+
 	}
 
 	void Start() {
@@ -80,14 +82,14 @@ public class EcoCat : MonoBehaviour {
 			rigidBody2D.AddForce(Vector2.right * force * 8);
 		}).AddTo (this);
 
-		Observable.EveryUpdate ().Subscribe (_ => {
-			var decreaseAmount = Time.deltaTime / 100f;
-			if(hungerLevel.Value > decreaseAmount) {
-				hungerLevel.Value -= decreaseAmount;
-			} else {
-				hungerLevel.Value = 0;
-			}
-		}).AddTo (this);
+//		Observable.EveryUpdate ().Subscribe (_ => {
+//			var decreaseAmount = Time.deltaTime / 100f;
+//			if(hungerLevel.Value > decreaseAmount) {
+//				hungerLevel.Value -= decreaseAmount;
+//			} else {
+//				hungerLevel.Value = 0;
+//			}
+//		}).AddTo (this);
 
 		HungerLevel
 			.Where(hungerLevel => hungerLevel <= 0)
@@ -96,6 +98,15 @@ public class EcoCat : MonoBehaviour {
 				GameManager.Instance.LoadScene("gameOver");
 		}).AddTo (this);
 			
+
+		carbonLevel.carbonLevelFull
+			.Where(isFull => isFull)
+			.SelectMany(_=> Observable.EveryUpdate())
+			.Subscribe (_ => {
+				var decreaseAmount = Time.deltaTime / 20f;
+				hungerLevel.Value = Mathf.Max(0f, hungerLevel.Value - decreaseAmount);
+		});
+
 	}
 
     void OnCollisionEnter2D(Collision2D coll) {
@@ -142,7 +153,7 @@ public class EcoCat : MonoBehaviour {
         if (numSeedsCollected.Value >= 1 && IsOnGround.Value)
         {
             // plant a tree
-			var newTree = Instantiate(tree, transform.position + Vector3.down * (catCollider2D.radius + 0.05f), Quaternion.identity);
+			Instantiate(tree, transform.position + Vector3.down * (catCollider2D.radius + 0.05f), Quaternion.identity);
 			numSeedsCollected.Value--;
 			plantTreeSound.Play ();
         }
@@ -151,9 +162,9 @@ public class EcoCat : MonoBehaviour {
     // Note Pluck Apple is not working, because the tree collider isn't being recognized
     void PluckApple()
     {
-        if (catCollider2D.IsTouching(treeCollider2D))
-        {
-            Debug.Log("Pluck an apple");
-        }
+//        if (catCollider2D.IsTouching(treeCollider2D))
+//        {
+//            Debug.Log("Pluck an apple");
+//        }
     }
 }
