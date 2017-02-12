@@ -33,7 +33,7 @@ public class EcoCat : MonoBehaviour {
 
 	public ReadOnlyReactiveProperty<bool> IsOnGround {
 		get {
-			return isOnGround.ToReadOnlyReactiveProperty ();
+			return isOnGround.DistinctUntilChanged().ToReadOnlyReactiveProperty ();
 		}
 	}
 
@@ -57,7 +57,6 @@ public class EcoCat : MonoBehaviour {
 			return hungerLevel.DistinctUntilChanged().ToReadOnlyReactiveProperty();
 		}
 	}
-
 
 	void Awake() {
 		rigidBody2D = GetComponent<Rigidbody2D> ();
@@ -94,7 +93,6 @@ public class EcoCat : MonoBehaviour {
 					jumpSound.Play();
 				}
 			})
-			.Do(_ => isOnGround.Value = false)
 			.Subscribe (_ => {
 			var originalVelocity = rigidBody2D.velocity;
 			rigidBody2D.velocity = new Vector2(originalVelocity.x, 2.5f);
@@ -144,6 +142,17 @@ public class EcoCat : MonoBehaviour {
 				rigidBody2D.gravityScale = 0f;
 			})
 			.AddTo (this);
+
+		Observable.EveryUpdate ()
+			.Subscribe (_ => {
+				string[] layers = {"Landscape"};
+				var hit = Physics2D.Raycast(this.transform.position, Vector2.down, 0.2f, LayerMask.GetMask(layers));
+				if(hit.collider != null && hit.collider.tag == "Land") {
+					isOnGround.Value = true;
+				} else {
+					isOnGround.Value = false;
+				}
+			}).AddTo (this);
 	}
 
     void OnCollisionEnter2D(Collision2D coll) {
@@ -155,9 +164,6 @@ public class EcoCat : MonoBehaviour {
             Destroy(coll.gameObject);
             numBottlesCollected.Value++;
             canSound.Play(); // Change to bottle sound
-        }
-        else if (coll.gameObject.tag == "Land") {
-			isOnGround.Value = true;
         }
     }
 
