@@ -7,6 +7,7 @@ public class EcoCat : MonoBehaviour {
 
     public Collider2D bottleDepotCollider2D;
     private Collider2D catCollider2D;
+    public Collider2D treeCollider2D;
 
 	private Rigidbody2D rigidBody2D;
 	public IObservable<bool> FacingRight;
@@ -111,6 +112,11 @@ public class EcoCat : MonoBehaviour {
         {
             PlantTree();
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            // Pluck an apple if you jump, or at least try to
+            PluckApple();
+        }
     }
 
     // Determine if ecocat has enough cans and is touching the depot
@@ -126,7 +132,7 @@ public class EcoCat : MonoBehaviour {
     void PlantTree()
     {
         // Cat must be grounded
-        if (numSeedsCollected.Value >= 1)
+        if (numSeedsCollected.Value >= 1 && IsOnGround.Value)
         {
             // plant a tree
             Instantiate(tree, transform.position, Quaternion.identity);
@@ -134,5 +140,14 @@ public class EcoCat : MonoBehaviour {
         }
 		plantTreeSound.Play ();
 
+    }
+
+    // Note Pluck Apple is not working, because the tree collider isn't being recognized
+    void PluckApple()
+    {
+        if (catCollider2D.IsTouching(treeCollider2D))
+        {
+            Debug.Log("Pluck an apple");
+        }
     }
 }

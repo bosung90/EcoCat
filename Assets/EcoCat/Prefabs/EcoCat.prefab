@@ -542,7 +542,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c4af5788c264712ad6029efa9142e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bottleDepotCollider2D: {fileID: 0}
+  bottleDepotCollider2D: {fileID: 61855711351511784, guid: 0e89cafb608ce7540ab29b85f64f69c7,
+    type: 2}
+  treeCollider2D: {fileID: 0}
   tree: {fileID: 1858409382851662, guid: 881e477abdaca7943ba6b69d10e484a2, type: 2}
 --- !u!114 &114393827867339924
 MonoBehaviour:
