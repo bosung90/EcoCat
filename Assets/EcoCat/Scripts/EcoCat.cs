@@ -81,7 +81,7 @@ public class EcoCat : MonoBehaviour {
 		}).AddTo (this);
 
 		Observable.EveryUpdate ().Subscribe (_ => {
-			var decreaseAmount = Time.deltaTime / 10f;
+			var decreaseAmount = Time.deltaTime / 100f;
 			if(hungerLevel.Value > decreaseAmount) {
 				hungerLevel.Value -= decreaseAmount;
 			} else {

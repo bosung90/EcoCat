@@ -11,29 +11,34 @@ public class GameManager : MonoBehaviour {
 
 	public GameObject Can;
 	public Transform CanSpawnArea;
-	private BoxCollider2D canBoxCollider;
-	private IObservable<Unit> CanSpawn;
 
-	[SerializeField]
-	private BoolReactiveProperty isRaining = new BoolReactiveProperty ();
 	public ReadOnlyReactiveProperty<bool> IsRaining {
 		get {
 			return isRaining.DistinctUntilChanged().ToReadOnlyReactiveProperty();
 		}
 	}
-
 	// Time goes from 0 to 1, where 0 is midnight, 1 is also midnight
-	private ReactiveProperty<float> timeOfTheDay = new ReactiveProperty<float>(0f);
 	public ReadOnlyReactiveProperty<float> TimeOfTheDay {
 		get {
 			return timeOfTheDay.ToReadOnlyReactiveProperty ();
 		}
 	}
 
+	private BoxCollider2D canBoxCollider;
+	private IObservable<Unit> CanSpawn;
+
+	[SerializeField]
+	private BoolReactiveProperty isRaining = new BoolReactiveProperty ();
+	private ReactiveProperty<float> timeOfTheDay = new ReactiveProperty<float>(0f);
+
+	private AudioSource endGameSound;
+
 	void Awake() {
 		Instance = this;
 		CanSpawn = Observable.Timer(TimeSpan.FromSeconds(4)).AsUnitObservable().Repeat();
 		canBoxCollider = CanSpawnArea.GetComponent<BoxCollider2D>();
+
+		endGameSound = GetComponent<AudioSource> ();
 
 		DontDestroyOnLoad (this);
 	}
@@ -65,6 +70,11 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void LoadScene(string sceneName) {
+
+		if (sceneName == "gameOver") {
+			endGameSound.Play ();
+		}
+
 		SceneManager.LoadScene (sceneName);
 	}
 }
