@@ -8,6 +8,7 @@ TagManager:
   - BottleDepot
   - Land
   - Bottle
+  - CanSpawnArea
   layers:
   - Default
   - TransparentFX

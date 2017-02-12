@@ -11,7 +11,6 @@ public class EcoCat : MonoBehaviour {
 
 	private Rigidbody2D rigidBody2D;
 	public IObservable<bool> FacingRight;
-    //private float maxSpeed = 1.0f;
 	private ReactiveProperty<int> numCansCollected = new ReactiveProperty<int> (0);
     private ReactiveProperty<int> numBottlesCollected = new ReactiveProperty<int> (0);
 	private AudioSource canSound;
@@ -121,12 +120,10 @@ public class EcoCat : MonoBehaviour {
             Destroy(coll.gameObject);
             numCansCollected.Value++;
 			canSound.Play ();
-            Debug.Log(numCansCollected.Value);
 		} else if (coll.gameObject.tag == "Bottle") {
             Destroy(coll.gameObject);
             numBottlesCollected.Value++;
             canSound.Play(); // Change to bottle sound
-            Debug.Log("Bottles Collected: " + numBottlesCollected.Value);
         }
         else if (coll.gameObject.tag == "Land") {
 			isOnGround.Value = true;

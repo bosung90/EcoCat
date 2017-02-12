@@ -6,6 +6,8 @@ using UniRx;
 
 public class CarbonLevel : MonoBehaviour {
 
+    public static CarbonLevel Instance;
+
 	private Image image;
 
 	private ReactiveProperty<float> carbonLevelFill = new ReactiveProperty<float>(0f);
@@ -18,11 +20,13 @@ public class CarbonLevel : MonoBehaviour {
 			.Select (fillLevel => fillLevel >= 1)
 			.DistinctUntilChanged()
 			.ToReadOnlyReactiveProperty ();
+
+        Instance = this;
 	}
 
 	void Start () {
 		Observable.EveryUpdate ().Subscribe (_ => {
-			carbonLevelFill.Value = Mathf.Min(1f, carbonLevelFill.Value + Time.deltaTime/23f);
+			carbonLevelFill.Value = Mathf.Min(1f, carbonLevelFill.Value + Time.deltaTime/0.1f); //0.1f
 		}).AddTo (this);
 
 		carbonLevelFill
