@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour {
 	public GameObject Can;
     public GameObject Bottle;
 	private Transform CanSpawnArea;
-	public CarbonLevel carbonLevel;
 
 	public ReadOnlyReactiveProperty<bool> IsRaining {
 		get {
@@ -105,7 +104,6 @@ public class GameManager : MonoBehaviour {
 	}
 
 	public void DecreaseCarbonPPM(float ppm) {
-        //carbonLevel.DecreaseCarbonPPM(ppm);
         CarbonLevel.Instance.DecreaseCarbonPPM(ppm);
 	}
     

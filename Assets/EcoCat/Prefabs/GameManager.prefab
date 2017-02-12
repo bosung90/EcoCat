@@ -215,7 +215,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Can: {fileID: 1035565076378218, guid: f35dff6508930d44ebd50ec5e9e200a7, type: 2}
   Bottle: {fileID: 1072100345950236, guid: e98966fb0a8d5934497d3f61f58391c8, type: 2}
-  CanSpawnArea: {fileID: 0}
-  carbonLevel: {fileID: 0}
   isRaining:
     value: 0
