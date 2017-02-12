@@ -10,8 +10,13 @@ public class EcoCatSprite : MonoBehaviour {
 	public GameObject seedInMouth;
 	public Sprite ecoSpaceShip;
 
+    public GameObject anxiousFace;
+    public SpriteRenderer anxiousRenderer;
+    public CarbonLevel carbonLevel;
+
 	void Awake() {
 		animator = GetComponent<Animator> ();
+        
 	}
 
 	void Start() {
@@ -29,11 +34,28 @@ public class EcoCatSprite : MonoBehaviour {
 			.Subscribe (hasSeed => {
 				seedInMouth.SetActive(hasSeed);
 		}).AddTo (this);
-	}
+
+        // Bye default, do not render Anxious Face
+        anxiousRenderer = anxiousFace.GetComponent<SpriteRenderer>();
+        anxiousRenderer.enabled = false;
+
+    }
 
 	void LookDirection(bool isRight) {
         Vector3 scale = transform.localScale;
 		scale.x = isRight ? 1 : -1;
         transform.localScale = scale;
 	}
+
+    private void Update() {
+        if (carbonLevel.carbonLevelFull.Value == true) {
+            anxiousRenderer.enabled = true;
+        } else {
+            anxiousRenderer.enabled = false;
+        }
+    }
+
+    //void ToggleAnxiety() {
+    //    anxiousRenderer.enabled = !anxiousRenderer.enabled;
+    //}
 }
