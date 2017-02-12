@@ -14,6 +14,7 @@ public class GameOverButton : MonoBehaviour {
 
 	void Start () {
 		button.OnClickAsObservable ().Subscribe (_ => {
+			GameManager.Instance.PlayBGSound();
 			GameManager.Instance.LoadScene("startScene");
 		}).AddTo (this);
 	}
