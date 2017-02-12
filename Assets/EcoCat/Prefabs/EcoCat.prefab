@@ -299,6 +299,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 29c4af5788c264712ad6029efa9142e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bottleDepotCollider2D: {fileID: 0}
 --- !u!114 &114393827867339924
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Can
+  - BottleDepot
   layers:
   - Default
   - TransparentFX
