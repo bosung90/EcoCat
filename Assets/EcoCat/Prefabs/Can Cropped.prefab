@@ -24,7 +24,7 @@ GameObject:
   - component: {fileID: 70839621121616316}
   m_Layer: 0
   m_Name: Can Cropped
-  m_TagString: Untagged
+  m_TagString: Can
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
