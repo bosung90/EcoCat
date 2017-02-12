@@ -72,8 +72,17 @@ public class EcoCat : MonoBehaviour {
 	}
 
 	void Start() {
+		var jumpCounter = 0;
+
 		InputManager.Instance.Jump
-			.Do(_ => jumpSound.Play())
+			.Do(_ => jumpCounter++)
+			.Do(_ => {
+				if((jumpCounter % 3) == 0) {
+					ecoCatSound.Play();
+				} else {
+					jumpSound.Play();
+				}
+			})
 			.Do(_ => isOnGround.Value = false)
 			.Subscribe (_ => {
 			var originalVelocity = rigidBody2D.velocity;
