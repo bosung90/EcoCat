@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UniRx;
+using UnityEngine.SceneManagement;
 
 public class GameStartButton : MonoBehaviour {
 
 	private Button button;
+
+    public string sceneToLoad = "main";
 
 	void Awake() {
 		button = GetComponent<Button> ();
@@ -14,7 +17,7 @@ public class GameStartButton : MonoBehaviour {
 
 	void Start () {
 		button.OnClickAsObservable ().Subscribe (_ => {
-			GameManager.Instance.LoadScene("main");
+            SceneManager.LoadScene(sceneToLoad);
 		}).AddTo (this);
 	}
 }
